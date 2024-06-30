@@ -18,7 +18,7 @@ graph["D"]["F"] = 3
 graph["D"]["E"] = 6
 graph["E"] = {}
 graph["E"]["F"] = 1
-graph["F"] = {}
+graph["final"] = {}
 
 coast = {}
 coast["B"] = 5
@@ -53,7 +53,7 @@ class Dijkstra():
                     parents[n] = node
             self.processed.append(node)
             node = self._find_lowest_cost_node(costs=costs)
-        return costs["F"]
+        return costs["final"]
 
     def _find_lowest_cost_node(self, costs:dict) -> str:
         lowest_cost = infinity
@@ -65,10 +65,36 @@ class Dijkstra():
                 lowest_cost_node = node
         return lowest_cost_node
 
+graph2 = {}
+graph2["A"] = {}
+graph2["A"]["B"] = 10
+graph2["B"] = {}
+graph2["B"]["C"] = 20
+graph2["C"] = {}
+graph2["C"]["D"] = 1
+graph2["C"]["final"] = 30
+graph2["D"] = {}
+graph2["D"]["B"] = 1
+graph2["final"] = {}
+
+parents2 = {}
+parents2["B"] = "A"
+parents2["C"] = None
+parents2["D"] = None
+parents2["final"] = None
+
+coast2 = {}
+coast2["B"] = 10
+coast2["C"] = infinity
+coast2["D"] = infinity
+coast2["final"] = infinity
+
+
+
 d = Dijkstra()
 result = d.find_min_path(
-    graph=graph,
-    costs=coast,
-    parents=parents,
+    graph=graph2,
+    costs=coast2,
+    parents=parents2,
 )
 print(result)
